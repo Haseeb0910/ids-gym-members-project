@@ -189,7 +189,7 @@ elif page == "Prediction":
 
     with col1:
         age = st.number_input("Age", min_value=10, max_value=80, value=25)
-        bmi = st.number_input("BMI", min_value=10.0, max_value=50.0, value=24.0)
+        bmi = st.number_input("BMI", min_value=10.0, max_value=50.0, value=24.0 , step= 0.10)
         weight = st.number_input("Weight (kg)", min_value=30.0, max_value=200.0, value=70.0, step=0.10)
         max_bpm = st.number_input("Max BPM", min_value=80, max_value=220, value=170)
         avg_bpm = st.number_input("Avg BPM", min_value=60, max_value=200, value=140)
