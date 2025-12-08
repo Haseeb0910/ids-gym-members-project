@@ -4,17 +4,11 @@ import joblib
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# ---------------------------
-# Basic page config
-# ---------------------------
 st.set_page_config(
     page_title="Calories Burned Prediction App",
     layout="wide",
 )
 
-# ---------------------------
-# Load data and model
-# ---------------------------
 @st.cache_data
 def load_data():
     return pd.read_csv("data/gym_members_exercise_tracking.csv")
@@ -41,9 +35,6 @@ feature_cols = [
     "Experience_Level_2",
 ]
 
-# ---------------------------
-# Sidebar navigation
-# ---------------------------
 st.title("Calories Burned Prediction App")
 
 col_nav1, col_nav2, col_nav3, col_nav4 = st.columns(4)
@@ -57,7 +48,6 @@ with col_nav3:
 with col_nav4:
     concl_btn = st.button("Conclusion")
 
-# Decide which page to show
 if "page" not in st.session_state:
     st.session_state.page = "Introduction"
 
@@ -72,9 +62,6 @@ elif concl_btn:
 
 page = st.session_state.page
 
-# ---------------------------
-# 1. Introduction page
-# ---------------------------
 if page == "Introduction":
     st.title("Calories Burned Prediction App 🔥")
     st.markdown(
@@ -95,9 +82,6 @@ if page == "Introduction":
         """
     )
 
-# ---------------------------
-# 2. EDA page 
-# ---------------------------
 elif page == "EDA":
     st.title("Exploratory Data Analysis 📊")
 
@@ -126,10 +110,8 @@ elif page == "EDA":
     fig3, ax3 = plt.subplots()
     sns.boxplot(data=df, x="Workout_Type", y="Calories_Burned", ax=ax3)
     st.pyplot(fig3)
-
     col3, col4 = st.columns(2)
-
-    with col3: 
+    with col3:
         st.subheader("BMI Distribution ⚖️")
         fig4, ax4 = plt.subplots()
         sns.histplot(df["BMI"], bins=30, kde=True, ax=ax4)
@@ -147,7 +129,6 @@ elif page == "EDA":
             ax=ax5,
     )
         st.pyplot(fig5)
-        
     st.subheader("Correlation Heatmap 🔥")
 
     numeric_cols = [
@@ -178,9 +159,6 @@ elif page == "EDA":
     )
     st.pyplot(fig_hm)
 
-# ---------------------------
-# 3. Prediction page
-# ---------------------------
 elif page == "Prediction":
     st.title("Predict Calories Burned 🧮")
     st.markdown("Fill in the workout and body details, then click **Predict** to see the estimated calories burned. 🚴")
@@ -209,7 +187,6 @@ elif page == "Prediction":
         )
         experience = st.selectbox("Experience Level", [1, 2, 3])
 
-    # Map to dummies used in training
     gender_male = 1 if gender == "Male" else 0
     workout_type_hiit = 1 if workout_type == "HIIT" else 0
     experience_level_2 = 1 if experience == 2 else 0
@@ -229,20 +206,12 @@ elif page == "Prediction":
         }
 
         input_df = pd.DataFrame([input_dict])
-
-        # Ensure column order matches training
         input_df = input_df[feature_cols]
-
-        pred = model.predict(input_df)[0]   
-
+        pred = model.predict(input_df)[0]
         st.success(f"Predicted Calories Burned: {pred:.2f} kcal")
 
-# ---------------------------
-# 4. Conclusion page
-# ---------------------------
 elif page == "Conclusion":
     st.title("Conclusion ✅")
-
 
     st.markdown(
         """
