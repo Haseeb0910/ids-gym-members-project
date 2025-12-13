@@ -35,7 +35,7 @@ feature_cols = [
     "Experience_Level_2",
 ]
 
-st.title("Calories Burned Prediction App")
+st.title("Calories Burned Prediction App 🔥")
 
 col_nav1, col_nav2, col_nav3, col_nav4 = st.columns(4)
 
@@ -63,7 +63,6 @@ elif concl_btn:
 page = st.session_state.page
 
 if page == "Introduction":
-    st.title("Calories Burned Prediction App 🔥")
     st.markdown(
         """
         Welcome to the **Calories Burned Prediction App** 💪  
